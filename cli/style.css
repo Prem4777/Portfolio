@@ -1,0 +1,316 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --green: #00ff00; /* classic terminal green */
+  --green-dim: rgba(0, 255, 0, 0.22);
+  --green-glow: rgba(0, 255, 0, 0.45);
+  --green-accent: #66ff66;
+}
+
+body {
+  font-family: "Press Start 2P", monospace;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 0, 0.03) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(0, 255, 0, 0.03) 3px
+  );
+  pointer-events: none;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+.terminal-container {
+  width: 100%;
+  max-width: 1300px;
+  background: rgba(15, 15, 25, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 255, 0, 0.2), 0 0 0 1px rgba(0, 255, 0, 0.3),
+    inset 0 0 100px rgba(0, 255, 0, 0.05);
+  backdrop-filter: blur(10px);
+  animation: terminalGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes terminalGlow {
+  0% {
+    box-shadow: 0 20px 60px rgba(0, 255, 0, 0.2), 0 0 0 1px rgba(0, 255, 0, 0.3),
+      inset 0 0 100px rgba(0, 255, 0, 0.05);
+  }
+  100% {
+    box-shadow: 0 20px 80px rgba(0, 255, 0, 0.3), 0 0 0 1px rgba(0, 255, 0, 0.5),
+      inset 0 0 100px rgba(0, 255, 0, 0.08);
+  }
+}
+
+.terminal-header {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 35, 0.9) 0%,
+    rgba(15, 15, 25, 0.9) 100%
+  );
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.terminal-button:nth-child(1) {
+  background: #ff5f56;
+  box-shadow: 0 0 8px #ff5f56;
+}
+.terminal-button:nth-child(2) {
+  background: #ffbd2e;
+  box-shadow: 0 0 8px #ffbd2e;
+}
+.terminal-button:nth-child(3) {
+  background: #27c93f;
+  box-shadow: 0 0 8px #27c93f;
+}
+
+.terminal-button:hover {
+  transform: scale(1.2);
+  filter: brightness(1.3);
+}
+
+.terminal-title {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--green-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.cli-output-area {
+  min-height: 600px;
+  max-height: 600px;
+  padding: 24px;
+  background: rgba(10, 10, 20, 0.5);
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--green);
+  text-shadow: 0 0 8px var(--green-glow);
+  scrollbar-width: thin;
+  scrollbar-color: var(--green-dim) transparent;
+}
+
+.cli-output-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cli-output-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.cli-output-area::-webkit-scrollbar-thumb {
+  background: var(--green-dim);
+  border-radius: 4px;
+}
+
+.cli-output-area::-webkit-scrollbar-thumb:hover {
+  background: var(--green-glow);
+}
+
+.cli-output-area p {
+  margin: 0 0 16px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  animation: fadeIn 0.3s ease-out;
+  letter-spacing: 0.5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cli-input-area {
+  display: flex;
+  align-items: center;
+  background: rgba(10, 10, 20, 0.7);
+  padding: 20px 24px;
+  border-top: 1px solid rgba(0, 255, 0, 0.2);
+  gap: 12px;
+}
+
+label[for="cli-input"] {
+  font-size: 16px;
+  color: var(--green);
+  text-shadow: 0 0 8px var(--green-glow);
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+#cli-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--green);
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  text-shadow: 0 0 8px var(--green-glow);
+  caret-color: var(--green);
+}
+
+#cli-input::selection {
+  background: rgba(0, 255, 0, 0.3);
+}
+
+.ls-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px 20px;
+  width: 100%;
+}
+
+.ls-item {
+  color: var(--green);
+}
+
+.ls-item.dir {
+  color: #00aaff;
+  font-weight: 400;
+}
+
+.dir-color {
+  color: #ffcc00;
+}
+
+.file-color {
+  color: #ffffff;
+}
+
+/* Error styling (bright red) */
+.error {
+  color: #ff3b3b;
+  text-shadow: 0 0 8px rgba(255, 59, 59, 0.6);
+  font-weight: 400;
+}
+
+/* Command and prompt coloring */
+.prompt {
+  color: var(--green);
+  font-weight: 400;
+}
+.cmd-name {
+  color: var(--green);
+  font-weight: 400;
+}
+.cmd-arg {
+  color: #ffd86b;
+}
+
+.help-pre {
+  font-family: "Press Start 2P", monospace;
+  white-space: pre-wrap;
+  color: #aaf0aa;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* File content styling (used by cat) */
+.file-content {
+  color: #cfe8c4;
+  white-space: pre-wrap;
+  margin: 0;
+  line-height: 1.6;
+  text-shadow: 0 0 8px var(--green-glow);
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+}
+
+a {
+  color: var(--green);
+  text-decoration: underline;
+  transition: all 0.3s;
+}
+
+a:hover {
+  color: var(--green-accent);
+  text-shadow: 0 0 12px var(--green-glow);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .terminal-container {
+    max-width: 100%;
+  }
+
+  .cli-output-area {
+    font-size: 12px;
+    padding: 16px;
+    min-height: 300px;
+  }
+
+  #cli-input {
+    font-size: 12px;
+  }
+
+  .terminal-title {
+    display: none;
+  }
+
+  .ls-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
