@@ -21,7 +21,7 @@ Currently features a functional **CLI mode** — **GUI part is under development
 
 ## 🚀 Preview
 
-> 🔗 **Preview** [Click Here](#) 
+> 🔗 **Preview** [Click Here](#) (Comming Soon)
 
 ---
 
