@@ -1,3 +1,24 @@
+import "./style.css";
+
+
+document.querySelector("#app").innerHTML = `
+  <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-button"></div>
+        <div class="terminal-button"></div>
+        <div class="terminal-button"></div>
+        <div class="terminal-title">Portfolio.CLI</div>
+      </div>
+      <div class="cli-output-area" id="cli-output-area">
+        <!-- Output will appear here -->
+      </div>
+      <div class="cli-input-area">
+        <label for="cli-input">&gt;</label>
+        <input type="text" id="cli-input" autocomplete="off" />
+      </div>
+    </div>
+`;
+
 window.addEventListener("DOMContentLoaded", () => {
   const path = "~/" + currentPath.slice(1).join("/");
 
@@ -28,24 +49,19 @@ Currently Pursuing
 Diploma in Computer Engineering
 Matoshree Asarabai Polytechnic, Nashik
 Completed`,
-    skills: `Languages: JavaScript, HTML, CSS, Python
-Frameworks: React, Node.js, Express
-Tools: Git, VS Code, Figma
-Interests: Web Design, CLI Tools, Game Development`,
+    skills: `Languages: C, C++(stl), HTML, CSS, Python, JavaScript
+Frameworks: Django, FastAPI
+Tools: Git, VS Code
+Interests: Web Devlopment, Compemitive Programming 
+Currently Exploring new web technologies and frameworks to enhance my development skills.`,
     projects: {
       project1: `Portfolio CLI - Interactive terminal-style portfolio
 Tech: Vanilla JavaScript, CSS
 A unique portfolio website designed as a command-line interface.`,
-      project2: `Project Name 2 - Brief description
-Tech: React, Node.js
-Add your second project description here.`,
-      project3: `Project Name 3 - Brief description  
-Tech: Python, Flask
-Add your third project description here.`,
     },
-    contact: `Email: your.email@example.com
-GitHub: github.com/yourusername
-LinkedIn: linkedin.com/in/yourprofile
+    contact: `Email: premgajare2005@example.com
+GitHub: github.com/Prem4777
+LinkedIn: linkedin.com/in/prem-gajare-a001662b2/
 Twitter: @yourhandle
 
 Feel free to reach out for collaborations or just to chat!`,
@@ -197,7 +213,8 @@ input.addEventListener("keypress", (e) => {
       commandHistory.push(cmd);
       historyIndex = commandHistory.length;
     }
-    const output = document.createElement("p");
+    const output = document.createElement("div");
+    output.className = "output-line";
     const prompt = getPrompt();
     const result = handleCommand(cmd);
 
@@ -262,7 +279,8 @@ input.addEventListener("keydown", (e) => {
         parts[parts.length - 1] = matches[0];
         input.value = parts.join(" ");
       } else if (matches.length > 1) {
-        const output = document.createElement("p");
+        const output = document.createElement("div");
+        output.className = "output-line";
         output.innerHTML = `\n${matches.join("    ")}\n`;
         outputArea.appendChild(output);
         outputArea.scrollTop = outputArea.scrollHeight;
