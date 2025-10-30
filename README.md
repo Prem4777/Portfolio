@@ -23,10 +23,15 @@ Currently features a functional **CLI mode** — **GUI part is under development
 
 > 🔗 **Preview:** [Click Here](https://portfolio-lovat-seven-93.vercel.app/)
 
+---
 
 ## ⚙️ Tech Stack
 **HTML** • **CSS** • **JavaScript**
 
 ---
 
-> Work in progress — polishing the CLI, building the GUI next 👨‍💻
+## 🧱 Development Status
+
+> ⚠️ **Work in Progress!**  
+> The **CLI mode** is fully functional, but the **GUI mode** is still under active development.  
+> Expect frequent updates and new features soon 👨‍💻
