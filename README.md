@@ -21,9 +21,8 @@ Currently features a functional **CLI mode** — **GUI part is under development
 
 ## 🚀 Preview
 
-> 🔗 **Preview** [Click Here](#) (Comming Soon)
+> 🔗 **Preview:** [Click Here](https://portfolio-lovat-seven-93.vercel.app/)
 
----
 
 ## ⚙️ Tech Stack
 **HTML** • **CSS** • **JavaScript**
