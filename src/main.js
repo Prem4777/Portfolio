@@ -31,6 +31,12 @@ window.addEventListener("DOMContentLoaded", () => {
   `;
   outputArea.appendChild(welcome);
   input.focus();
+
+  // Set prompt label once on load (removed inefficient setInterval)
+  const label = document.querySelector('label[for="cli-input"]');
+  if (label) {
+    label.textContent = "›";
+  }
 });
 
 const input = document.querySelector("#cli-input");
@@ -86,16 +92,13 @@ function lsCommand() {
     return `<span class="error">ls: not a directory</span>`;
   }
   const entries = Object.keys(dir);
-  let result = "";
 
-  entries.forEach((entry) => {
+  return entries.map((entry) => {
     const isDir = typeof dir[entry] === "object";
     const colorClass = isDir ? "dir-color" : "file-color";
     const suffix = isDir ? "/" : "";
-    result += `<span class="${colorClass}">${entry}${suffix}</span>    `;
-  });
-
-  return result.trim();
+    return `<span class="${colorClass}">${entry}${suffix}</span>`;
+  }).join("    ");
 }
 
 function cdCommand(arg) {
@@ -197,13 +200,16 @@ function handleCommand(cmd) {
   return result;
 }
 
+const escapeHtmlMap = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#039;'
+};
+
 function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return unsafe.replace(/[&<>"']/g, char => escapeHtmlMap[char]);
 }
 
 input.addEventListener("keypress", (e) => {
@@ -288,14 +294,6 @@ input.addEventListener("keydown", (e) => {
     }
   }
 });
-
-// Update prompt dynamically
-setInterval(() => {
-  const label = document.querySelector('label[for="cli-input"]');
-  if (label) {
-    label.textContent = "›";
-  }
-}, 100);
 
 // Keep input focused
 document.addEventListener("click", () => {
