@@ -1,4 +1,8 @@
 import "./style.css";
+import { inject } from "@vercel/analytics";
+
+// Initialize Vercel Web Analytics
+inject();
 
 
 document.querySelector("#app").innerHTML = `
